@@ -3,101 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEGAL TRUST SCORE</title>
+    <title>Legal Trust Score | Fluid Neon</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #00d2ff;
             --danger: #ff4b5c;
-            --accent: #7000ff;
-            --bg: #050a0f;
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.1);
+            --bg: #02060a;
+            --glass: rgba(255, 255, 255, 0.05);
         }
 
-        * { box-sizing: border-box; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        * { box-sizing: border-box; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
         
         body { 
             margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; 
             background: var(--bg); color: #fff;
-            height: 100vh; display: flex; align-items: center; justify-content: center;
-            background-image: radial-gradient(circle at center, #001d3d 0%, #050a0f 100%);
-            overflow: hidden;
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            background-image: radial-gradient(circle at 50% 50%, #001d3d 0%, #02060a 100%);
+            overflow-x: hidden;
         }
 
-        /* ОСНОВНОЙ КОНТЕЙНЕР (СТЕКЛО) */
+        /* ГЛАВНЫЙ КОНТЕЙНЕР - ПУЗЫРЬ */
         .viewport {
-            width: 95%; max-width: 1100px;
-            background: var(--glass); backdrop-filter: blur(20px);
-            border: 1px solid var(--border); border-radius: 24px;
+            width: 95%; max-width: 1000px;
+            background: var(--glass); backdrop-filter: blur(35px);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 60px;
             padding: 50px; position: relative;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
-            transform: rotateX(2deg);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.6);
         }
 
-        /* ЭКРАНЫ */
         .screen { display: none; text-align: center; }
-        .active { display: block; animation: fadeIn 0.5s ease forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .active { display: block; animation: blobIn 0.5s ease; }
+        @keyframes blobIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        h2 { 
-            font-size: 38px; font-weight: 800; text-transform: uppercase; letter-spacing: 5px; margin: 0 0 40px;
-            background: linear-gradient(to bottom, #fff, var(--primary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        h2 { font-size: 36px; font-weight: 800; margin-bottom: 40px; letter-spacing: -1px; }
+
+        /* СТАТИСТИКА (ПУЗЫРИ) */
+        .stats-wrap { display: flex; gap: 20px; margin-bottom: 40px; }
+        .stat-bubble { 
+            background: rgba(255,255,255,0.03); border: 1.5px solid var(--primary); 
+            padding: 30px; border-radius: 40px; flex: 1;
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.15);
         }
+        .stat-bubble b { display: block; font-size: 32px; color: var(--primary); }
+        .stat-bubble span { font-size: 10px; text-transform: uppercase; opacity: 0.6; font-weight: 700; }
 
-        /* СТАТИСТИКА (ГЛОБАЛЬНЫЕ КОСЯКИ) */
-        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px; }
-        .stat-node { 
-            background: rgba(255,255,255,0.02); border: 1px solid var(--border); 
-            padding: 25px; border-radius: 16px; position: relative; overflow: hidden;
-        }
-        .stat-node::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary); box-shadow: 0 0 15px var(--primary); }
-        .stat-node b { display: block; font-size: 28px; color: #fff; margin-bottom: 5px; }
-        .stat-node span { font-size: 10px; text-transform: uppercase; color: var(--primary); letter-spacing: 1px; font-weight: 700; }
-
-        /* КНОПКА-ГЕКСАГОН */
+        /* КНОПКА КАПСУЛА */
         .btn-neon {
-            background: transparent; color: var(--primary); border: 2px solid var(--primary);
-            padding: 18px 50px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; cursor: pointer;
-            clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+            background: var(--primary); color: #000; border: none;
+            padding: 22px 60px; font-weight: 800; text-transform: uppercase;
+            border-radius: 100px; cursor: pointer; font-size: 14px;
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.4);
         }
-        .btn-neon:hover { background: var(--primary); color: #000; box-shadow: 0 0 40px var(--primary); }
-        .btn-neon:disabled { opacity: 0.1; filter: grayscale(1); cursor: not-allowed; }
+        .btn-neon:hover { transform: translateY(-3px); box-shadow: 0 10px 40px rgba(0, 210, 255, 0.6); }
+        .btn-neon:disabled { background: #333; color: #666; box-shadow: none; cursor: not-allowed; }
 
-        /* ФОРМА */
-        .form-wrap { max-width: 500px; margin: 0 auto; text-align: left; }
-        .input-box { margin-bottom: 25px; }
-        label { font-size: 10px; color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 10px; }
-        input, select { 
-            width: 100%; padding: 16px; background: rgba(255,255,255,0.05); 
-            border: 1px solid var(--border); border-radius: 4px; color: #fff; font-size: 14px; outline: none;
+        /* ФОРМА (КАПСУЛЬНЫЕ ПОЛЯ) */
+        .form-content { max-width: 600px; margin: 0 auto; text-align: left; }
+        .pill-field {
+            width: 100%; padding: 18px 25px; background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 100px;
+            color: #fff; margin-bottom: 20px; outline: none; font-size: 15px;
         }
-        input:focus { border-color: var(--primary); background: rgba(255,255,255,0.08); }
+        .pill-field:focus { border-color: var(--primary); }
+        textarea.pill-field { border-radius: 30px; resize: none; }
 
-        /* РЕЗУЛЬТАТ (ДВОЙНОЙ ОТЧЕТ) */
-        .report-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; margin-top: 20px; }
-        .report-card { 
-            background: rgba(0,0,0,0.4); padding: 35px; border-radius: 20px; border: 1px solid var(--border);
-            text-align: left; position: relative;
+        /* ОТЧЕТ: ДВОЙНАЯ ПАНЕЛЬ */
+        .report-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 20px; }
+        .report-bubble { 
+            background: rgba(0,0,0,0.3); padding: 40px; border-radius: 50px; 
+            border: 1px solid rgba(255,255,255,0.08); text-align: left;
         }
-        .report-card.personal { border-color: var(--danger); box-shadow: inset 0 0 20px rgba(255, 75, 92, 0.05); }
 
-        .ring-wrap { position: relative; width: 140px; height: 140px; margin-bottom: 20px; }
-        .ring-text { position: absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size: 32px; font-weight: 800; color: var(--danger); }
+        .ring-container { width: 130px; height: 130px; margin: 0 auto 20px; position: relative; }
+        .ring-val { position: absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size: 30px; font-weight: 800; color: var(--danger); }
 
         /* ТАРИФЫ ПОД ОТЧЕТОМ */
-        .pricing-footer { margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--border); }
-        .price-btns { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
-        .p-btn { 
-            background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 15px 25px; 
-            border-radius: 12px; cursor: pointer; flex: 1; text-align: center;
+        .pricing-footer { margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .p-capsule { 
+            background: rgba(255,255,255,0.02); padding: 20px; border-radius: 100px; 
+            display: inline-block; width: 31%; border: 1px solid transparent; text-align: center;
         }
-        .p-btn:hover { border-color: var(--primary); background: rgba(0, 210, 255, 0.05); }
-        .p-btn b { display: block; font-size: 18px; margin-bottom: 5px; }
-        .p-btn span { font-size: 9px; opacity: 0.6; text-transform: uppercase; }
+        .p-capsule:hover { border-color: var(--primary); background: rgba(0,210,255,0.05); }
 
     </style>
 </head>
@@ -106,71 +93,72 @@
 <div class="viewport">
     
     <div id="scr-home" class="screen active">
-        <h2>Legal Trust Score</h2>
-        <div class="stats-grid">
-            <div class="stat-node"><b>45.2%</b><span>Долги по выплатам</span></div>
-            <div class="stat-node"><b>28.7%</b><span>Нарушение ст. 33</span></div>
-            <div class="stat-node"><b>17.4%</b><span>Судебные иски</span></div>
+        <h2>Твоя работа — твои правила.</h2>
+        <div class="stats-wrap">
+            <div class="stat-bubble"><b>45%</b><span>Задержки выплат</span></div>
+            <div class="stat-bubble" style="border-color: var(--danger);"><b>28%</b><span>Без договора</span></div>
+            <div class="stat-bubble"><b>17%</b><span>Штрафы фирм</span></div>
         </div>
-        <button class="btn-neon" onclick="nav('scr-form')">Проверить организацию</button>
+        <button class="btn-neon" onclick="nav('scr-form')">Проверить работодателя</button>
     </div>
 
     <div id="scr-form" class="screen">
-        <h2>Параметры аудита</h2>
-        <div class="form-wrap">
-            <div class="input-box">
-                <label>Юридическое лицо</label>
-                <input type="text" id="cName" placeholder="ТОО / ИП / АО">
-            </div>
-            <div class="input-box">
-                <label>Регламент ст. 113 (Зарплата)</label>
-                <select id="v1">
-                    <option value="0">Нарушений нет</option>
-                    <option value="40">Систематические задержки</option>
+        <h2>Анализ организации</h2>
+        <div class="form-content">
+            <input type="text" id="compName" class="pill-field" placeholder="Наименование организации">
+            
+            <div style="display: flex; gap: 15px;">
+                <select id="q1" class="pill-field">
+                    <option value="0">Выплаты: В срок</option>
+                    <option value="35">Выплаты: Задержки</option>
+                </select>
+                <select id="q2" class="pill-field">
+                    <option value="0">Договор: Есть</option>
+                    <option value="45">Договор: Нет</option>
                 </select>
             </div>
-            <div style="margin-bottom: 30px; font-size: 11px; opacity: 0.5;">
-                <input type="checkbox" id="consent" onchange="document.getElementById('go').disabled = !this.checked"> 
-                Я подтверждаю согласие на сбор и обработку персональных данных (Закон РК)
+
+            <textarea id="desc" class="pill-field" rows="3" placeholder="Описание ситуации..."></textarea>
+            
+            <div style="margin-bottom: 25px; font-size: 12px; opacity: 0.6; padding-left: 20px;">
+                <input type="checkbox" id="check" onchange="document.getElementById('run').disabled = !this.checked"> Согласие на обработку данных
             </div>
-            <button id="go" class="btn-neon" style="width: 100%;" disabled onclick="generate()">Запустить анализ</button>
-            <p><a href="#" onclick="clearAndHome()" style="color: #666; font-size: 11px; text-transform: uppercase;">Отмена</a></p>
+            
+            <button id="run" class="btn-neon" style="width: 100%;" disabled onclick="analyze()">Запустить аудит</button>
+            <p><a href="#" onclick="resetAll()" style="color:#666; text-decoration:none; font-size: 13px;">Вернуться</a></p>
         </div>
     </div>
 
     <div id="scr-res" class="screen">
-        <h2>Аналитический отчет</h2>
-        
-        <div class="report-layout">
-            <div class="report-card personal">
-                <div class="ring-wrap">
+        <h2>Результаты аудита</h2>
+        <div class="report-grid">
+            <div class="report-bubble" style="border-color: var(--danger);">
+                <div class="ring-container">
                     <svg viewBox="0 0 36 36" style="transform: rotate(-90deg); width: 100%;">
                         <circle cx="18" cy="18" r="16" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="3"></circle>
-                        <circle id="riskRing" cx="18" cy="18" r="16" fill="none" stroke="var(--danger)" stroke-width="3" stroke-dasharray="0 100"></circle>
+                        <circle id="ring" cx="18" cy="18" r="16" fill="none" stroke="var(--danger)" stroke-width="3" stroke-dasharray="0 100"></circle>
                     </svg>
-                    <div class="ring-text" id="riskVal">0%</div>
+                    <div class="ring-val" id="riskVal">0%</div>
                 </div>
-                <b id="resTitle" style="font-size: 20px; display: block; margin-bottom: 10px;"></b>
-                <p style="font-size: 12px; line-height: 1.6; opacity: 0.7; margin: 0;">Ваш персональный индекс юридического риска. Обнаружены критические несовпадения с ТК РК.</p>
+                <b id="resTitle" style="font-size: 22px; color: var(--primary);"></b>
+                <p style="font-size: 12px; opacity: 0.5; margin-top: 10px;">Индивидуальный риск работодателя.</p>
             </div>
 
-            <div class="report-card">
-                <label style="margin-bottom: 20px; display: block;">Отраслевой контекст</label>
-                <div style="font-size: 13px; margin-bottom: 15px;">• Вероятность штрафа: <b style="color:var(--primary)">Высокая</b></div>
-                <div style="font-size: 13px; margin-bottom: 15px;">• Средний балл по РК: <b style="color:var(--primary)">42.1</b></div>
-                <div style="font-size: 13px; margin-bottom: 15px;">• Риск блокировки счетов: <b style="color:var(--danger)">Active</b></div>
-                <div style="margin-top: 30px; height: 1px; background: var(--border);"></div>
-                <p style="font-size: 10px; margin-top: 15px; opacity: 0.5;">Данные обновлены на основе 12,400 проверок за 2026 год.</p>
+            <div class="report-bubble">
+                <span style="font-size: 11px; color: var(--primary); font-weight: 800; letter-spacing: 1px;">КОСЯКИ РАБОТОДАТЕЛЕЙ</span>
+                <div style="font-size: 13px; margin-top: 25px; line-height: 2;">
+                    • Нарушения в отрасли: <b>34%</b><br>
+                    • Задержки по стране: <b>21%</b><br>
+                    • Уровень опасности: <b style="color:var(--danger)">High</b>
+                </div>
             </div>
         </div>
 
         <div class="pricing-footer">
-            <label>Доступные расширения</label>
-            <div class="price-btns">
-                <div class="p-btn" onclick="alert('Переход к оплате...')"><b>9 990 ₸</b><span>Полный PRO отчет</span></div>
-                <div class="p-btn" onclick="alert('Связь с юристом...')"><b>59 990 ₸</b><span>Юр. сопровождение</span></div>
-            </div>
-            <button class="btn-neon" style="margin-top: 40px; padding: 12px 30px; font-size: 10px;" onclick="clearAndHome()">Сбросить и выйти</button>
+            <div class="p-capsule"><b>9 990 ₸</b><br><small>PRO REPORT</small></div>
+            <div class="p-capsule"><b>59 990 ₸</b><br><small>BUSINESS</small></div>
+            <br><br>
+            <button class="btn-neon" style="background:transparent; color:var(--primary); border:2px solid var(--primary); padding:12px 40px; font-size:11px;" onclick="resetAll()">Сбросить и обнулить</button>
         </div>
     </div>
 
@@ -182,28 +170,23 @@
         document.getElementById(id).classList.add('active');
     }
 
-    function generate() {
-        const name = document.getElementById('cName').value || "Объект";
-        const risk = parseInt(document.getElementById('v1').value) + 32; // Базовый риск + выбор
-
+    function analyze() {
+        const name = document.getElementById('compName').value || "Работодатель";
+        const risk = parseInt(document.getElementById('q1').value) + parseInt(document.getElementById('q2').value) + 18;
         document.getElementById('resTitle').innerText = name;
-        document.getElementById('riskVal').innerText = risk + '%';
-        document.getElementById('riskRing').setAttribute('stroke-dasharray', risk + ' 100');
-        
+        document.getElementById('riskVal').innerText = Math.min(risk, 99) + '%';
+        document.getElementById('ring').setAttribute('stroke-dasharray', Math.min(risk, 99) + ' 100');
         nav('scr-res');
     }
 
-    function clearAndHome() {
-        // Очистка всех данных
-        document.getElementById('cName').value = '';
-        document.getElementById('v1').selectedIndex = 0;
-        document.getElementById('consent').checked = false;
-        document.getElementById('go').disabled = true;
-        
-        // Сброс графики
-        document.getElementById('riskRing').setAttribute('stroke-dasharray', '0 100');
-        
-        // На главную
+    function resetAll() {
+        // ОБНУЛЕНИЕ ВСЕХ ДАННЫХ
+        document.getElementById('compName').value = '';
+        document.getElementById('desc').value = '';
+        document.getElementById('q1').selectedIndex = 0;
+        document.getElementById('q2').selectedIndex = 0;
+        document.getElementById('check').checked = false;
+        document.getElementById('run').disabled = true;
         nav('scr-home');
     }
 </script>
