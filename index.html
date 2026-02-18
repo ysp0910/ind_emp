@@ -113,8 +113,8 @@
                     <option value="35">Выплаты: Задержки</option>
                 </select>
                 <select id="q2" class="pill-field">
-                    <option value="0">Договор: Есть</option>
                     <option value="45">Договор: Нет</option>
+                    <option value="0">Договор: Есть</option>
                 </select>
             </div>
 
@@ -172,15 +172,21 @@
 
     function analyze() {
         const name = document.getElementById('compName').value || "Работодатель";
-        const risk = parseInt(document.getElementById('q1').value) + parseInt(document.getElementById('q2').value) + 18;
+        const val1 = parseInt(document.getElementById('q1').value);
+        const val2 = parseInt(document.getElementById('q2').value);
+        
+        // ЧИСТАЯ ЛОГИКА: если 0 и 0, то риск 0. 
+        // Если есть хоть один косяк, добавляем небольшой базовый фактор сложности.
+        let risk = val1 + val2;
+        if (risk > 0) risk += 5; 
+
         document.getElementById('resTitle').innerText = name;
-        document.getElementById('riskVal').innerText = Math.min(risk, 99) + '%';
-        document.getElementById('ring').setAttribute('stroke-dasharray', Math.min(risk, 99) + ' 100');
+        document.getElementById('riskVal').innerText = Math.min(risk, 100) + '%';
+        document.getElementById('ring').setAttribute('stroke-dasharray', Math.min(risk, 100) + ' 100');
         nav('scr-res');
     }
 
     function resetAll() {
-        // ОБНУЛЕНИЕ ВСЕХ ДАННЫХ
         document.getElementById('compName').value = '';
         document.getElementById('desc').value = '';
         document.getElementById('q1').selectedIndex = 0;
@@ -193,4 +199,3 @@
 
 </body>
 </html>
-
