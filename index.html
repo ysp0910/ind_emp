@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Employer Transparency Hub</title>
+<title>Платформа Работодателей</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
 body { margin:0; font-family: 'Roboto', sans-serif; background:#f8f9fa; color:#111; }
 header { background:#222; color:#fff; padding:25px 0; text-align:center; }
@@ -29,7 +31,7 @@ nav a:hover { text-decoration:underline; }
 .feature h4 { font-weight:700; margin-bottom:10px; }
 #calculator { display:none; margin-top:40px; padding:30px; background:#fff; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1); }
 #calculator h3 { margin-top:0; }
-select, button.calc-btn { width:100%; padding:8px; font-size:14px; margin-bottom:10px; border-radius:5px; border:1px solid #ccc; }
+input, textarea, select, button.calc-btn { width:100%; padding:8px; font-size:14px; margin-bottom:10px; border-radius:5px; border:1px solid #ccc; }
 .calc-btn { background:#222; color:#fff; font-weight:700; cursor:pointer; border:none; }
 .calc-btn:hover { background:#444; }
 #result { margin-top:20px; font-weight:700; font-size:16px; }
@@ -39,86 +41,99 @@ footer { margin-top:50px; text-align:center; padding:20px; font-size:14px; color
 <body>
 
 <header>
-    <h1>Employer Transparency Hub</h1>
+    <h1>Платформа Работодателей</h1>
     <nav>
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Join</a>
-        <a href="#">Contact</a>
+        <a href="#">Главная</a>
+        <a href="#">О нас</a>
+        <a href="#">Регистрация</a>
+        <a href="#">Контакты</a>
     </nav>
 </header>
 
 <div class="container">
 
+    <!-- Герой блок -->
     <section class="hero">
         <div class="hero-text">
-            <h2>Understand Workplace Risks Before You Join</h2>
-            <p>Our platform provides insight into employer transparency, workplace policies, and risk factors. Make informed decisions with data you can trust.</p>
-            <span class="btn" onclick="showCalculator()">Join Early Access</span>
+            <h2>Прозрачность работодателей — ключ к безопасной работе</h2>
+            <p>Мы собираем данные о работодателях и их практиках, чтобы вы могли принимать осознанные решения перед трудоустройством.</p>
+            <span class="btn" onclick="showCalculator()">Зарегистрироваться и узнать больше</span>
         </div>
         <div class="hero-image">
-            <img src="placeholder.jpg" alt="Business style image">
+            <img src="placeholder.jpg" alt="Бизнес стиль">
         </div>
     </section>
 
+    <!-- О нас -->
     <section class="section">
-        <h3>Why This Matters</h3>
-        <p>Workplace transparency affects employee well-being, retention, and productivity. Our goal is to provide anonymized insights and structured data to make labor markets fairer and safer.</p>
+        <h3>О нас</h3>
+        <p>Наша платформа создана для того, чтобы рынок труда становился прозрачнее и безопаснее. Мы помогаем сотрудникам оценивать работодателей по ключевым критериям: своевременность выплат, наличие официального договора, условия переработок и прозрачность внутренней политики. Вся информация собирается анонимно и используется для формирования аналитики и рейтингов.</p>
+    </section>
 
+    <!-- Преимущества -->
+    <section class="section">
+        <h3>Преимущества платформы</h3>
         <div class="features">
             <div class="feature">
-                <h4>Data-Driven</h4>
-                <p>Collect anonymized reports and statistics to understand trends.</p>
+                <h4>Анонимно и безопасно</h4>
+                <p>Никакие имена сотрудников и компаний не раскрываются без согласия, только обезличенные данные.</p>
             </div>
             <div class="feature">
-                <h4>Safe & Legal</h4>
-                <p>No names of companies are revealed until verified; compliance first.</p>
+                <h4>Данные и аналитика</h4>
+                <p>Вы получаете информацию, основанную на реальных кейсах и статистике.</p>
             </div>
             <div class="feature">
-                <h4>Expert Insights</h4>
-                <p>Indexes and risk indicators are based on structured methodology.</p>
+                <h4>Прозрачность рынка</h4>
+                <p>Помогает сотрудникам видеть риски и выбирать работодателей осознанно.</p>
             </div>
         </div>
     </section>
 
+    <!-- Калькулятор риска -->
     <section id="calculator">
-        <h3>Employer Risk Calculator</h3>
+        <h3>Калькулятор риска работодателя</h3>
         <form id="riskForm">
-            <p>1. Is your salary paid on time?</p>
+            <p>Название организации:</p>
+            <input type="text" id="company" placeholder="Введите название работодателя">
+
+            <p>Опыт работы / комментарии:</p>
+            <textarea id="experience" placeholder="Опишите ваш опыт" style="min-height:80px;"></textarea>
+
+            <p>1. Выплачивается ли зарплата вовремя?</p>
             <select id="q1">
-                <option value="0">Always</option>
-                <option value="5">Sometimes delayed</option>
-                <option value="10">Often delayed</option>
+                <option value="0">Всегда</option>
+                <option value="5">Иногда с задержкой</option>
+                <option value="10">Часто с задержкой</option>
             </select>
 
-            <p>2. Do you have a written contract?</p>
+            <p>2. Есть ли письменный трудовой договор?</p>
             <select id="q2">
-                <option value="0">Yes</option>
-                <option value="10">No</option>
+                <option value="0">Да</option>
+                <option value="10">Нет</option>
             </select>
 
-            <p>3. Are overtime hours compensated?</p>
+            <p>3. Оплачиваются ли переработки?</p>
             <select id="q3">
-                <option value="0">Yes, fully</option>
-                <option value="5">Partially</option>
-                <option value="10">Not at all</option>
+                <option value="0">Полностью</option>
+                <option value="5">Частично</option>
+                <option value="10">Не оплачиваются</option>
             </select>
 
-            <p>4. Are company policies transparent?</p>
+            <p>4. Прозрачны ли внутренние политики компании?</p>
             <select id="q4">
-                <option value="0">Yes, clear</option>
-                <option value="5">Somewhat</option>
-                <option value="10">No</option>
+                <option value="0">Да, полностью</option>
+                <option value="5">Частично</option>
+                <option value="10">Нет</option>
             </select>
 
-            <p>5. Is workplace pressure handled fairly?</p>
+            <p>5. Справедливо ли управляется нагрузка и давление на сотрудников?</p>
             <select id="q5">
-                <option value="0">Yes</option>
-                <option value="5">Sometimes unfair</option>
-                <option value="10">Often unfair</option>
+                <option value="0">Да</option>
+                <option value="5">Иногда несправедливо</option>
+                <option value="10">Часто несправедливо</option>
             </select>
 
-            <button type="button" class="calc-btn" onclick="calculateRisk()">Calculate</button>
+            <button type="button" class="calc-btn" onclick="calculateRisk()">Рассчитать риск</button>
         </form>
         <div id="result"></div>
     </section>
@@ -126,7 +141,7 @@ footer { margin-top:50px; text-align:center; padding:20px; font-size:14px; color
 </div>
 
 <footer>
-    © 2026 Employer Transparency Hub
+    © 2026 Платформа Работодателей
 </footer>
 
 <script>
@@ -136,6 +151,14 @@ function showCalculator() {
 }
 
 function calculateRisk() {
+    let company = document.getElementById("company").value.trim();
+    let experience = document.getElementById("experience").value.trim();
+
+    if (!company || !experience) {
+        alert("Пожалуйста, заполните название организации и ваш опыт.");
+        return;
+    }
+
     let total = 0;
     for (let i=1; i<=5; i++) {
         total += parseInt(document.getElementById("q"+i).value);
@@ -143,14 +166,17 @@ function calculateRisk() {
 
     let message = "";
     if (total <= 10) {
-        message = "Low risk environment";
+        message = "Низкий риск";
     } else if (total <= 25) {
-        message = "Moderate risk";
+        message = "Средний риск";
     } else {
-        message = "High risk employer";
+        message = "Высокий риск";
     }
 
-    document.getElementById("result").innerText = "Your Risk Score: " + total + " → " + message;
+    document.getElementById("result").innerHTML = 
+        "<strong>Организация:</strong> " + company + "<br>" +
+        "<strong>Ваш опыт:</strong> " + experience + "<br>" +
+        "<strong>Итоговый балл:</strong> " + total + " → " + message;
 }
 </script>
 
