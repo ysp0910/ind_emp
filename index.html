@@ -3,139 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Employer Risk Index</title>
-
-<!-- Google Font -->
+<title>Employer Transparency Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
 <style>
-body {
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    background: #f8f9fa;
-    color: #111;
-}
-
-header {
-    background: #222;
-    color: #fff;
-    padding: 20px 0;
-    text-align: center;
-}
-
-header h1 {
-    margin: 0;
-    font-weight: 700;
-    font-size: 28px;
-}
-
-.container {
-    width: 90%;
-    max-width: 1000px;
-    margin: 30px auto;
-}
-
-section {
-    background: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
-}
-
-h2, h3 {
-    font-weight: 700;
-}
-
-form p {
-    margin: 15px 0 5px;
-}
-
-select {
-    width: 100%;
-    padding: 8px;
-    font-size: 14px;
-    margin-bottom: 10px;
-}
-
-button {
-    padding: 10px 20px;
-    background: #222;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-weight: 700;
-}
-
-button:hover {
-    background: #444;
-}
-
-#result {
-    margin-top: 20px;
-    font-weight: 700;
-}
+body { margin:0; font-family: 'Roboto', sans-serif; background:#f8f9fa; color:#111; }
+header { background:#222; color:#fff; padding:25px 0; text-align:center; }
+header h1 { margin:0; font-weight:700; font-size:32px; }
+nav { margin-top:10px; }
+nav a { color:#fff; margin:0 15px; text-decoration:none; font-weight:500; }
+nav a:hover { text-decoration:underline; }
+.container { width:90%; max-width:1000px; margin:40px auto; }
+.hero { background:#fff; padding:50px 30px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+.hero-text { max-width:60%; }
+.hero-text h2 { font-size:36px; font-weight:700; margin-bottom:20px; }
+.hero-text p { font-size:18px; margin-bottom:20px; }
+.btn { display:inline-block; padding:12px 25px; margin-top:10px; background:#222; color:#fff; text-decoration:none; font-weight:700; border-radius:5px; cursor:pointer; }
+.btn:hover { background:#444; }
+.hero-image { max-width:35%; min-width:250px; }
+.hero-image img { width:100%; border-radius:10px; }
+.section { margin-top:50px; padding:40px 30px; background:#fff; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.05); }
+.section h3 { font-weight:700; font-size:28px; margin-bottom:20px; }
+.section p { font-size:16px; line-height:1.6; }
+.features { display:flex; flex-wrap:wrap; gap:20px; margin-top:30px; }
+.feature { flex:1; min-width:250px; background:#f1f1f1; padding:20px; border-radius:8px; }
+.feature h4 { font-weight:700; margin-bottom:10px; }
+#calculator { display:none; margin-top:40px; padding:30px; background:#fff; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1); }
+#calculator h3 { margin-top:0; }
+select, button.calc-btn { width:100%; padding:8px; font-size:14px; margin-bottom:10px; border-radius:5px; border:1px solid #ccc; }
+.calc-btn { background:#222; color:#fff; font-weight:700; cursor:pointer; border:none; }
+.calc-btn:hover { background:#444; }
+#result { margin-top:20px; font-weight:700; font-size:16px; }
+footer { margin-top:50px; text-align:center; padding:20px; font-size:14px; color:#555; }
 </style>
 </head>
 <body>
 
 <header>
-    <h1>Employer Risk Index</h1>
+    <h1>Employer Transparency Hub</h1>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Join</a>
+        <a href="#">Contact</a>
+    </nav>
 </header>
 
 <div class="container">
 
-<section>
-    <h2>About</h2>
-    <p>This platform helps you assess workplace risk using an anonymized questionnaire. Fill the form to see your Employer Risk Score.</p>
-</section>
+    <section class="hero">
+        <div class="hero-text">
+            <h2>Understand Workplace Risks Before You Join</h2>
+            <p>Our platform provides insight into employer transparency, workplace policies, and risk factors. Make informed decisions with data you can trust.</p>
+            <span class="btn" onclick="showCalculator()">Join Early Access</span>
+        </div>
+        <div class="hero-image">
+            <img src="placeholder.jpg" alt="Business style image">
+        </div>
+    </section>
 
-<section>
-    <h2>Risk Calculator</h2>
-    <form id="riskForm">
-        <p>1. Is your salary paid on time?</p>
-        <select id="q1">
-            <option value="0">Always</option>
-            <option value="5">Sometimes delayed</option>
-            <option value="10">Often delayed</option>
-        </select>
+    <section class="section">
+        <h3>Why This Matters</h3>
+        <p>Workplace transparency affects employee well-being, retention, and productivity. Our goal is to provide anonymized insights and structured data to make labor markets fairer and safer.</p>
 
-        <p>2. Do you have a written contract?</p>
-        <select id="q2">
-            <option value="0">Yes</option>
-            <option value="10">No</option>
-        </select>
+        <div class="features">
+            <div class="feature">
+                <h4>Data-Driven</h4>
+                <p>Collect anonymized reports and statistics to understand trends.</p>
+            </div>
+            <div class="feature">
+                <h4>Safe & Legal</h4>
+                <p>No names of companies are revealed until verified; compliance first.</p>
+            </div>
+            <div class="feature">
+                <h4>Expert Insights</h4>
+                <p>Indexes and risk indicators are based on structured methodology.</p>
+            </div>
+        </div>
+    </section>
 
-        <p>3. Are overtime hours compensated?</p>
-        <select id="q3">
-            <option value="0">Yes, fully</option>
-            <option value="5">Partially</option>
-            <option value="10">Not at all</option>
-        </select>
+    <section id="calculator">
+        <h3>Employer Risk Calculator</h3>
+        <form id="riskForm">
+            <p>1. Is your salary paid on time?</p>
+            <select id="q1">
+                <option value="0">Always</option>
+                <option value="5">Sometimes delayed</option>
+                <option value="10">Often delayed</option>
+            </select>
 
-        <p>4. Are company policies transparent?</p>
-        <select id="q4">
-            <option value="0">Yes, clear</option>
-            <option value="5">Somewhat</option>
-            <option value="10">No</option>
-        </select>
+            <p>2. Do you have a written contract?</p>
+            <select id="q2">
+                <option value="0">Yes</option>
+                <option value="10">No</option>
+            </select>
 
-        <p>5. Is workplace pressure handled fairly?</p>
-        <select id="q5">
-            <option value="0">Yes</option>
-            <option value="5">Sometimes unfair</option>
-            <option value="10">Often unfair</option>
-        </select>
+            <p>3. Are overtime hours compensated?</p>
+            <select id="q3">
+                <option value="0">Yes, fully</option>
+                <option value="5">Partially</option>
+                <option value="10">Not at all</option>
+            </select>
 
-        <button type="button" onclick="calculateRisk()">Calculate</button>
-    </form>
+            <p>4. Are company policies transparent?</p>
+            <select id="q4">
+                <option value="0">Yes, clear</option>
+                <option value="5">Somewhat</option>
+                <option value="10">No</option>
+            </select>
 
-    <h3 id="result"></h3>
-</section>
+            <p>5. Is workplace pressure handled fairly?</p>
+            <select id="q5">
+                <option value="0">Yes</option>
+                <option value="5">Sometimes unfair</option>
+                <option value="10">Often unfair</option>
+            </select>
+
+            <button type="button" class="calc-btn" onclick="calculateRisk()">Calculate</button>
+        </form>
+        <div id="result"></div>
+    </section>
 
 </div>
 
+<footer>
+    © 2026 Employer Transparency Hub
+</footer>
+
 <script>
+function showCalculator() {
+    document.getElementById('calculator').style.display = 'block';
+    window.scrollTo({ top: document.getElementById('calculator').offsetTop - 20, behavior: 'smooth' });
+}
+
 function calculateRisk() {
     let total = 0;
     for (let i=1; i<=5; i++) {
