@@ -93,17 +93,17 @@
 <div class="viewport">
     
     <div id="scr-home" class="screen active">
-        <h2>Твоя работа — твои правила.</h2>
+        <h2>Legal Trust Score</h2>
         <div class="stats-wrap">
             <div class="stat-bubble"><b>45%</b><span>Задержки выплат</span></div>
             <div class="stat-bubble" style="border-color: var(--danger);"><b>28%</b><span>Без договора</span></div>
-            <div class="stat-bubble"><b>17%</b><span>Штрафы фирм</span></div>
+            <div class="stat-bubble"><b>17%</b><span>Штрафы организаций</span></div>
         </div>
         <button class="btn-neon" onclick="nav('scr-form')">Проверить работодателя</button>
     </div>
 
     <div id="scr-form" class="screen">
-        <h2>Анализ организации</h2>
+        <h2>Проверка работодателя</h2>
         <div class="form-content">
             <input type="text" id="compName" class="pill-field" placeholder="Наименование организации">
             
@@ -118,19 +118,19 @@
                 </select>
             </div>
 
-            <textarea id="desc" class="pill-field" rows="3" placeholder="Описание ситуации..."></textarea>
+            <textarea id="desc" class="pill-field" rows="3" placeholder="Опишите свой опыт работы в данной организации..."></textarea>
             
             <div style="margin-bottom: 25px; font-size: 12px; opacity: 0.6; padding-left: 20px;">
-                <input type="checkbox" id="check" onchange="document.getElementById('run').disabled = !this.checked"> Согласие на обработку данных
+                <input type="checkbox" id="check" onchange="document.getElementById('run').disabled = !this.checked"> Согласие на сбор и обработку персональных данных
             </div>
             
-            <button id="run" class="btn-neon" style="width: 100%;" disabled onclick="analyze()">Запустить аудит</button>
-            <p><a href="#" onclick="resetAll()" style="color:#666; text-decoration:none; font-size: 13px;">Вернуться</a></p>
+            <button id="run" class="btn-neon" style="width: 100%;" disabled onclick="analyze()">Проверить</button>
+            <p><a href="#" onclick="resetAll()" style="color:#666; text-decoration:none; font-size: 13px;">Назад</a></p>
         </div>
     </div>
 
     <div id="scr-res" class="screen">
-        <h2>Результаты аудита</h2>
+        <h2>Результаты</h2>
         <div class="report-grid">
             <div class="report-bubble" style="border-color: var(--danger);">
                 <div class="ring-container">
@@ -145,18 +145,18 @@
             </div>
 
             <div class="report-bubble">
-                <span style="font-size: 11px; color: var(--primary); font-weight: 800; letter-spacing: 1px;">КОСЯКИ РАБОТОДАТЕЛЕЙ</span>
+                <span style="font-size: 11px; color: var(--primary); font-weight: 800; letter-spacing: 1px;">НАИБОЛЕЕ ЧАСТЫЕ НАРУШЕНИЯ РАБОТОДАТЕЛЕЙ</span>
                 <div style="font-size: 13px; margin-top: 25px; line-height: 2;">
                     • Нарушения в отрасли: <b>34%</b><br>
-                    • Задержки по стране: <b>21%</b><br>
+                    • Задержка оплаты труда: <b>21%</b><br>
                     • Уровень опасности: <b style="color:var(--danger)">High</b>
                 </div>
             </div>
         </div>
 
         <div class="pricing-footer">
-            <div class="p-capsule"><b>9 990 ₸</b><br><small>PRO REPORT</small></div>
-            <div class="p-capsule"><b>59 990 ₸</b><br><small>BUSINESS</small></div>
+            <div class="p-capsule"><b>9 990 ₸</b><br><small>PRO</small></div>
+            <div class="p-capsule"><b>59 990 ₸</b><br><small>Для организаций</small></div>
             <br><br>
             <button class="btn-neon" style="background:transparent; color:var(--primary); border:2px solid var(--primary); padding:12px 40px; font-size:11px;" onclick="resetAll()">Сбросить и обнулить</button>
         </div>
@@ -193,3 +193,4 @@
 
 </body>
 </html>
+
