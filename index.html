@@ -23,7 +23,6 @@
             overflow-x: hidden;
         }
 
-        /* ГЛАВНЫЙ КОНТЕЙНЕР - ПУЗЫРЬ */
         .viewport {
             width: 95%; max-width: 1000px;
             background: var(--glass); backdrop-filter: blur(35px);
@@ -38,7 +37,6 @@
 
         h2 { font-size: 36px; font-weight: 800; margin-bottom: 40px; letter-spacing: -1px; }
 
-        /* СТАТИСТИКА (ПУЗЫРИ) */
         .stats-wrap { display: flex; gap: 20px; margin-bottom: 40px; }
         .stat-bubble { 
             background: rgba(255,255,255,0.03); border: 1.5px solid var(--primary); 
@@ -48,7 +46,6 @@
         .stat-bubble b { display: block; font-size: 32px; color: var(--primary); }
         .stat-bubble span { font-size: 10px; text-transform: uppercase; opacity: 0.6; font-weight: 700; }
 
-        /* КНОПКА КАПСУЛА */
         .btn-neon {
             background: var(--primary); color: #000; border: none;
             padding: 22px 60px; font-weight: 800; text-transform: uppercase;
@@ -58,7 +55,6 @@
         .btn-neon:hover { transform: translateY(-3px); box-shadow: 0 10px 40px rgba(0, 210, 255, 0.6); }
         .btn-neon:disabled { background: #333; color: #666; box-shadow: none; cursor: not-allowed; }
 
-        /* ФОРМА (КАПСУЛЬНЫЕ ПОЛЯ) */
         .form-content { max-width: 600px; margin: 0 auto; text-align: left; }
         .pill-field {
             width: 100%; padding: 18px 25px; background: rgba(0,0,0,0.3);
@@ -68,7 +64,6 @@
         .pill-field:focus { border-color: var(--primary); }
         textarea.pill-field { border-radius: 30px; resize: none; }
 
-        /* ОТЧЕТ: ДВОЙНАЯ ПАНЕЛЬ */
         .report-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 20px; }
         .report-bubble { 
             background: rgba(0,0,0,0.3); padding: 40px; border-radius: 50px; 
@@ -78,7 +73,6 @@
         .ring-container { width: 130px; height: 130px; margin: 0 auto 20px; position: relative; }
         .ring-val { position: absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size: 30px; font-weight: 800; color: var(--danger); }
 
-        /* ТАРИФЫ ПОД ОТЧЕТОМ */
         .pricing-footer { margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); }
         .p-capsule { 
             background: rgba(255,255,255,0.02); padding: 20px; border-radius: 100px; 
@@ -110,10 +104,10 @@
             <div style="display: flex; gap: 15px;">
                 <select id="q1" class="pill-field">
                     <option value="0">Выплаты: В срок</option>
-                    <option value="35">Выплаты: Задержки</option>
+                    <option value="40">Выплаты: Задержки</option>
                 </select>
                 <select id="q2" class="pill-field">
-                    <option value="45">Договор: Нет</option>
+                    <option value="50">Договор: Нет</option>
                     <option value="0">Договор: Есть</option>
                 </select>
             </div>
@@ -145,12 +139,9 @@
             </div>
 
             <div class="report-bubble">
-                <span style="font-size: 11px; color: var(--primary); font-weight: 800; letter-spacing: 1px;">НАИБОЛЕЕ ЧАСТЫЕ НАРУШЕНИЯ РАБОТОДАТЕЛЕЙ</span>
-                <div style="font-size: 13px; margin-top: 25px; line-height: 2;">
-                    • Нарушения в отрасли: <b>34%</b><br>
-                    • Задержка оплаты труда: <b>21%</b><br>
-                    • Уровень опасности: <b style="color:var(--danger)">High</b>
-                </div>
+                <span style="font-size: 11px; color: var(--primary); font-weight: 800; letter-spacing: 1px;">АНАЛИЗ ВЫЯВЛЕННЫХ УГРОЗ</span>
+                <div id="dynamic-info" style="font-size: 13px; margin-top: 25px; line-height: 1.8;">
+                    </div>
             </div>
         </div>
 
@@ -172,17 +163,30 @@
 
     function analyze() {
         const name = document.getElementById('compName').value || "Работодатель";
-        const val1 = parseInt(document.getElementById('q1').value);
-        const val2 = parseInt(document.getElementById('q2').value);
+        const v1 = parseInt(document.getElementById('q1').value);
+        const v2 = parseInt(document.getElementById('q2').value);
         
-        // ЧИСТАЯ ЛОГИКА: если 0 и 0, то риск 0. 
-        // Если есть хоть один косяк, добавляем небольшой базовый фактор сложности.
-        let risk = val1 + val2;
-        if (risk > 0) risk += 5; 
-
+        // Усиленная логика: отсутствие договора — это сразу критично.
+        let risk = v1 + v2;
+        if (v2 > 0) risk += 10; // Доп. штраф за отсутствие договора
+        if (v1 > 0 && v2 > 0) risk = 95; // Если комбо — риск почти максимальный
+        
         document.getElementById('resTitle').innerText = name;
-        document.getElementById('riskVal').innerText = Math.min(risk, 100) + '%';
-        document.getElementById('ring').setAttribute('stroke-dasharray', Math.min(risk, 100) + ' 100');
+        document.getElementById('riskVal').innerText = Math.min(risk, 99) + '%';
+        document.getElementById('ring').setAttribute('stroke-dasharray', Math.min(risk, 99) + ' 100');
+
+        // Генерируем подробную информацию
+        let info = "";
+        if (risk === 0) {
+            info = "• Юридическая чистота: <b>Высокая</b><br>• Риск внеплановой проверки: <b>Низкий</b><br>• Рекомендация: <b>Безопасно</b>";
+        } else {
+            if (v1 > 0) info += "• Нарушение ст. 113 ТК РК (сроки выплат)<br>";
+            if (v2 > 0) info += "• Критическое нарушение ст. 33 ТК РК (нет договора)<br>";
+            info += `• Вероятность трудового спора: <b>${risk}%</b><br>`;
+            info += "• Статус: <b style='color:var(--danger)'>Не рекомендуется</b>";
+        }
+        document.getElementById('dynamic-info').innerHTML = info;
+
         nav('scr-res');
     }
 
