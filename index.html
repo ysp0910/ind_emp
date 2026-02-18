@@ -3,248 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Платформа Работодателей | Индекс доверия</title>
+    <title>HR-TRUST | Индекс доверия работодателей</title>
     
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
-            --blue: #1a4fdb;
-            --blue-dark: #0f3494;
-            --bg: #ffffff;
-            --gray-light: #f9fafb;
-            --gray-border: #e5e7eb;
-            --text-dark: #111827;
-            --text-muted: #6b7280;
-            --green: #059669;
-            --red: #dc2626;
+            --primary: #0071e3;
+            --accent: #bf5af2;
+            --bg: #000000;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f5f5f7;
+            --text-dim: #86868b;
         }
 
-        * { box-sizing: border-box; transition: all 0.2s ease; }
+        * { box-sizing: border-box; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
 
         body { 
             margin: 0; 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; 
             background: var(--bg); 
-            color: var(--text-dark); 
-            line-height: 1.5;
+            color: var(--text-main); 
+            line-height: 1.47;
+            overflow-x: hidden;
         }
 
-        .container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .bg-glow {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(0, 113, 227, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 70%, rgba(191, 90, 242, 0.15) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        .container { width: 90%; max-width: 1100px; margin: 0 auto; }
 
         header { 
-            padding: 20px 0; 
-            border-bottom: 1px solid var(--gray-border);
-            background: #fff;
-            position: sticky; top: 0; z-index: 100;
+            padding: 20px 0; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            position: sticky; top: 0; z-index: 1000; border-bottom: 0.5px solid var(--glass-border);
         }
         header .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 20px; font-weight: 700; color: var(--blue); letter-spacing: -0.5px; }
+        .logo { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; color: #fff; }
         
-        nav a { color: var(--text-muted); margin-left: 25px; text-decoration: none; font-weight: 500; font-size: 14px; }
-        nav a:hover { color: var(--blue); }
+        nav a { color: var(--text-dim); margin-left: 30px; text-decoration: none; font-weight: 500; font-size: 14px; }
+        nav a:hover { color: var(--text-main); }
 
-        .hero { padding: 80px 0; display: flex; align-items: center; gap: 40px; border-bottom: 1px solid var(--gray-border); }
-        .hero-text { flex: 1; }
-        .hero-text h1 { font-size: 48px; line-height: 1.1; margin-bottom: 20px; font-weight: 800; color: var(--text-dark); }
-        .hero-text p { font-size: 18px; color: var(--text-muted); margin-bottom: 30px; }
+        .hero { padding: 100px 0; text-align: center; }
+        .hero h2 { font-size: 64px; font-weight: 800; letter-spacing: -2px; margin-bottom: 20px; 
+                   background: linear-gradient(180deg, #fff 0%, #a1a1a6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 24px; color: var(--text-dim); max-width: 700px; margin: 0 auto 40px; }
         
         .btn { 
-            display: inline-block; padding: 14px 28px; background: var(--blue); 
-            color: #fff; text-decoration: none; font-weight: 600; border-radius: 8px; 
-            cursor: pointer; border: none; font-size: 16px; text-align: center;
+            display: inline-block; padding: 16px 32px; background: var(--primary); 
+            color: #fff; text-decoration: none; font-weight: 600; border-radius: 30px; 
+            cursor: pointer; border: none; font-size: 17px; text-align: center;
         }
-        .btn:hover { background: var(--blue-dark); }
-        .btn-outline { background: transparent; border: 1px solid var(--gray-border); color: var(--text-dark); }
-        .btn-outline:hover { background: var(--gray-light); }
+        .btn:hover { transform: scale(1.05); background: #0077ed; }
 
-        .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; padding: 60px 0; }
-        .feature { padding: 20px; }
-        .feature i { font-size: 24px; color: var(--blue); margin-bottom: 15px; display: block; }
-        .feature h4 { font-size: 18px; margin: 0 0 10px 0; }
-        .feature p { color: var(--text-muted); font-size: 14px; margin: 0; }
+        .card { 
+            background: var(--glass); padding: 40px; border-radius: 28px; 
+            border: 1px solid var(--glass-border); backdrop-filter: blur(10px);
+        }
 
         #calculator { 
-            background: var(--gray-light); padding: 50px; border-radius: 12px; 
-            border: 1px solid var(--gray-border); margin: 40px 0; display: none;
+            display: none; background: var(--glass); padding: 60px; border-radius: 40px; 
+            border: 1px solid var(--glass-border); margin: 80px 0;
+            animation: fadeIn 0.8s ease;
         }
-        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; }
+
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px; }
         input, select, textarea { 
-            width: 100%; padding: 12px; background: #fff; border: 1px solid var(--gray-border); 
-            border-radius: 6px; font-size: 15px; margin-bottom: 20px; font-family: inherit;
+            width: 100%; padding: 18px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); 
+            border-radius: 14px; color: #fff; margin-bottom: 20px; font-size: 16px; font-family: inherit;
         }
 
-        .pricing { padding: 80px 0; }
-        .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; padding: 60px 0; }
         .price-card { 
-            padding: 30px; border-radius: 12px; border: 1px solid var(--gray-border);
-            display: flex; flex-direction: column;
+            padding: 50px 30px; border-radius: 30px; background: var(--glass); 
+            border: 1px solid var(--glass-border); text-align: center; display: flex; flex-direction: column;
         }
-        .price-card.featured { border: 2px solid var(--blue); background: #f0f4ff; }
-        .price-card h4 { font-size: 16px; color: var(--text-muted); text-transform: uppercase; margin: 0; }
-        .price-card .cost { font-size: 32px; font-weight: 700; margin: 15px 0; }
-        .price-card ul { padding: 0; list-style: none; margin: 20px 0; flex-grow: 1; }
-        .price-card ul li { margin-bottom: 10px; font-size: 14px; display: flex; align-items: center; }
-        .price-card ul li i { color: var(--green); margin-right: 10px; }
+        .price-card.featured { border: 2px solid var(--primary); background: rgba(0, 113, 227, 0.05); transform: scale(1.02); }
+        .price-card .cost { font-size: 42px; font-weight: 800; margin: 20px 0; }
+        .price-card .cost span { font-size: 18px; font-weight: 400; color: var(--text-dim); }
+        .price-card ul { padding: 0; list-style: none; text-align: left; margin: 30px 0; flex-grow: 1; }
+        .price-card ul li { margin-bottom: 12px; color: var(--text-dim); font-size: 15px; }
+        .price-card ul li i { color: var(--primary); margin-right: 10px; }
 
-        #result { 
-            margin-top: 30px; padding: 20px; border-radius: 8px; 
-            display: none; font-weight: 600; text-align: center;
-        }
+        #result { margin-top: 30px; padding: 25px; border-radius: 20px; display: none; text-align: center; font-weight: 600; }
 
-        footer { padding: 40px 0; border-top: 1px solid var(--gray-border); color: var(--text-muted); text-align: center; font-size: 13px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        @media (max-width: 850px) {
-            .hero, .features, .price-grid, .calc-grid { grid-template-columns: 1fr; flex-direction: column; }
-            .hero-text h1 { font-size: 36px; }
-        }
+        footer { padding: 60px 0; border-top: 1px solid var(--glass-border); color: var(--text-dim); text-align: center; font-size: 12px; }
     </style>
 </head>
 <body>
 
+<div class="bg-glow"></div>
+
 <header>
     <div class="container">
-        <div class="logo">Платформа Работодателей</div>
+        <div class="logo">HR-TRUST</div>
         <nav>
             <a href="#pricing">Тарифы</a>
-            <a href="#">О нас</a>
-            <a href="#" class="btn btn-outline" style="padding: 8px 16px;">Войти</a>
+            <a href="#">Войти</a>
         </nav>
     </div>
 </header>
 
 <div class="container">
     <section class="hero">
-        <div class="hero-text">
-            <h1>Проверьте своего работодателя.</h1>
-            <p>Узнайте реальную ситуацию с выплатами и условиями труда до того, как подпишете договор. База основана на анонимных данных сотрудников.</p>
-            <button class="btn" onclick="showCalculator()">Рассчитать индекс риска</button>
-        </div>
-        <div style="flex: 0.8; text-align: right;">
-            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80" style="width: 100%; border-radius: 8px;" alt="Work">
-        </div>
+        <h2>Работайте уверенно.</h2>
+        <p>Мгновенная проверка работодателей Казахстана на основе Big Data и отзывов инсайдеров.</p>
+        <button class="btn" onclick="openCalculator()">Начать аудит</button>
     </section>
 
-    <div class="features">
-        <div class="feature">
-            <i class="fa-solid fa-lock"></i>
-            <h4>Анонимно</h4>
-            <p>Мы собираем только обезличенную статистику. Ваши личные данные никогда не будут переданы.</p>
-        </div>
-        <div class="feature">
-            <i class="fa-solid fa-check-double"></i>
-            <h4>Проверено</h4>
-            <p>Каждый отзыв проходит базовую модерацию и сверку с открытыми данными компании.</p>
-        </div>
-        <div class="feature">
-            <i class="fa-solid fa-scale-balanced"></i>
-            <h4>Честно</h4>
-            <p>Наша цель — сделать рынок труда прозрачным и справедливым для обеих сторон.</p>
-        </div>
-    </div>
-
     <section id="calculator">
-        <h3 style="margin: 0 0 30px 0;">Анкета оценки работодателя</h3>
+        <h3 style="text-align:center; font-size: 32px; margin-top:0;">Анализ благонадежности</h3>
         <form id="riskForm">
             <div class="calc-grid">
                 <div>
-                    <label>Название компании</label>
-                    <input type="text" id="comp" placeholder="Название организации">
-                    <label>Комментарий к работе</label>
-                    <textarea id="exp" rows="4" placeholder="Опишите ваш опыт..."></textarea>
+                    <label style="color:var(--text-dim); font-size:14px;">Компания</label>
+                    <input type="text" id="companyInput" placeholder="Введите название">
+                    <label style="color:var(--text-dim); font-size:14px;">Ваш отзыв</label>
+                    <textarea id="experienceInput" rows="4" placeholder="Анонимно..."></textarea>
                 </div>
                 <div>
-                    <label>Выплаты зарплаты</label>
-                    <select id="r1">
-                        <option value="0">Без задержек</option>
-                        <option value="10">Есть задержки</option>
+                    <label style="color:var(--text-dim); font-size:14px;">Стабильность выплат</label>
+                    <select id="q1">
+                        <option value="0">Вовремя</option>
+                        <option value="10">Задержки</option>
                     </select>
-                    <label>Наличие договора</label>
-                    <select id="r2">
-                        <option value="0">Официальный (ТК)</option>
-                        <option value="10">Без договора / Серые схемы</option>
+                    <label style="color:var(--text-dim); font-size:14px;">Тип договора</label>
+                    <select id="q2">
+                        <option value="0">Официально</option>
+                        <option value="15">Без договора</option>
                     </select>
                 </div>
             </div>
-            <button type="button" class="btn" style="width: 100%;" onclick="calculateRisk()">Сформировать отчет</button>
+            <button type="button" class="btn" style="width: 100%; margin-top: 10px;" onclick="runAnalysis()">Получить отчет</button>
         </form>
         <div id="result"></div>
     </section>
 
-    <section class="pricing" id="pricing">
-        <h3 style="text-align:center; font-size: 28px; margin-bottom: 40px;">Тарифные планы</h3>
+    <section id="pricing">
         <div class="price-grid">
             <div class="price-card">
-                <h4>Базовый</h4>
-                <div class="cost">0 тг.</div>
+                <h4 style="color:var(--text-dim); text-transform:uppercase; font-size:12px; letter-spacing:1px;">Базовый</h4>
+                <div class="cost">0 ₸</div>
                 <ul>
-                    <li><i class="fa-solid fa-check"></i> Поиск по базе</li>
-                    <li><i class="fa-solid fa-check"></i> 1 отчет в день</li>
+                    <li><i class="fa-solid fa-check"></i> Просмотр общего рейтинга</li>
+                    <li><i class="fa-solid fa-check"></i> 1 аудит в неделю</li>
                 </ul>
-                <button class="btn btn-outline">Выбрать</button>
+                <button class="btn" style="background: rgba(255,255,255,0.1); width: 100%;">Начать</button>
             </div>
+
             <div class="price-card featured">
-                <h4>PRO</h4>
-                <div class="cost">9 990 тг.<span>/мес</span></div>
+                <h4 style="color:var(--primary); text-transform:uppercase; font-size:12px; letter-spacing:1px; font-weight:800;">PRO Соискатель</h4>
+                <div class="cost">9 990 ₸ <span>/мес</span></div>
                 <ul>
-                    <li><i class="fa-solid fa-check"></i> Полная аналитика</li>
-                    <li><i class="fa-solid fa-check"></i> Безлимитные отчеты</li>
-                    <li><i class="fa-solid fa-check"></i> Чат с инсайдерами</li>
+                    <li><i class="fa-solid fa-check"></i> Безлимитные аудиты</li>
+                    <li><i class="fa-solid fa-check"></i> Доступ к черным спискам</li>
+                    <li><i class="fa-solid fa-check"></i> Чат с экс-сотрудниками</li>
                 </ul>
-                <button class="btn">Выбрать PRO</button>
+                <button class="btn" style="width: 100%;">Выбрать PRO</button>
             </div>
+
             <div class="price-card">
-                <h4>Бизнес</h4>
-                <div class="cost">59 990 тг.</div>
+                <h4 style="color:var(--text-dim); text-transform:uppercase; font-size:12px; letter-spacing:1px;">Корпоративный</h4>
+                <div class="cost">59 990 ₸ <span>/мес</span></div>
                 <ul>
-                    <li><i class="fa-solid fa-check"></i> Мониторинг бренда</li>
-                    <li><i class="fa-solid fa-check"></i> Ответ на отзывы</li>
+                    <li><i class="fa-solid fa-check"></i> Управление HR-брендом</li>
+                    <li><i class="fa-solid fa-check"></i> Аналитика текучести</li>
+                    <li><i class="fa-solid fa-check"></i> Официальный ответ на отзывы</li>
                 </ul>
-                <button class="btn btn-outline">Для компаний</button>
+                <button class="btn" style="background: #fff; color: #000; width: 100%;">Для бизнеса</button>
             </div>
         </div>
     </section>
 </div>
 
 <footer>
-    © 2026 Платформа Работодателей. Все права защищены.
+    © 2026 HR-TRUST | Прозрачность — это новая валюта.
 </footer>
 
 <script>
-    // Показать калькулятор
-    function showCalculator() {
-        const calc = document.getElementById('calculator');
-        calc.style.display = 'block';
-        calc.scrollIntoView({behavior: 'smooth'});
+    function openCalculator() {
+        const c = document.getElementById('calculator');
+        c.style.display = 'block';
+        c.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // Рассчитать риск
-    function calculateRisk() {
-        const companyName = document.getElementById('comp').value.trim();
-        const experienceText = document.getElementById('exp').value.trim();
+    function runAnalysis() {
+        const name = document.getElementById('companyInput').value;
+        const text = document.getElementById('experienceInput').value;
+        if(!name || !text) { alert('Заполните все поля'); return; }
 
-        if(!companyName || !experienceText) { 
-            alert('Пожалуйста, заполните название компании и ваш комментарий.'); 
-            return; 
-        }
-        
-        const delayScore = parseInt(document.getElementById('r1').value);
-        const contractScore = parseInt(document.getElementById('r2').value);
-        const totalScore = delayScore + contractScore;
-        
-        const resultDiv = document.getElementById('result');
-        resultDiv.style.display = 'block';
-        
-        if(totalScore === 0) {
-            resultDiv.style.background = '#ecfdf5'; 
-            resultDiv.style.color = '#065f46';
-            resultDiv.style.border = '1px solid #059669';
-            resultDiv.innerHTML = "✅ Компания <strong>" + companyName + "</strong> имеет высокий индекс доверия.";
+        const score = parseInt(document.getElementById('q1').value) + parseInt(document.getElementById('q2').value);
+        const res = document.getElementById('result');
+        res.style.display = 'block';
+
+        if(score === 0) {
+            res.style.border = '1px solid #2ecc71'; res.style.color = '#2ecc71';
+            res.innerHTML = "✅ Компания " + name + " рекомендована для трудоустройства.";
         } else {
-            resultDiv.style.background = '#fef2f2'; 
-            resultDiv.style.color = '#991b1b';
-            resultDiv.style.border = '1px solid #dc2626';
-            resultDiv.innerHTML = "⚠️ Для компании <strong>" + companyName + "</strong> обнаружены потенциальные риски (" + totalScore + " баллов).";
+            res.style.border = '1px solid #e74c3c'; res.style.color = '#e74c3c';
+            res.innerHTML = "⚠️ Обнаружены риски в " + name + ". Изучите детали в PRO версии.";
         }
     }
 </script>
