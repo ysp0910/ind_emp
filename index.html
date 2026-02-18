@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employer Risk Index</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: #f8f9fa;
+    color: #111;
+}
+
+header {
+    background: #222;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 28px;
+}
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 30px auto;
+}
+
+section {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+h2, h3 {
+    font-weight: 700;
+}
+
+form p {
+    margin: 15px 0 5px;
+}
+
+select {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    background: #222;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+button:hover {
+    background: #444;
+}
+
+#result {
+    margin-top: 20px;
+    font-weight: 700;
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Employer Risk Index</h1>
+</header>
+
+<div class="container">
+
+<section>
+    <h2>About</h2>
+    <p>This platform helps you assess workplace risk using an anonymized questionnaire. Fill the form to see your Employer Risk Score.</p>
+</section>
+
+<section>
+    <h2>Risk Calculator</h2>
+    <form id="riskForm">
+        <p>1. Is your salary paid on time?</p>
+        <select id="q1">
+            <option value="0">Always</option>
+            <option value="5">Sometimes delayed</option>
+            <option value="10">Often delayed</option>
+        </select>
+
+        <p>2. Do you have a written contract?</p>
+        <select id="q2">
+            <option value="0">Yes</option>
+            <option value="10">No</option>
+        </select>
+
+        <p>3. Are overtime hours compensated?</p>
+        <select id="q3">
+            <option value="0">Yes, fully</option>
+            <option value="5">Partially</option>
+            <option value="10">Not at all</option>
+        </select>
+
+        <p>4. Are company policies transparent?</p>
+        <select id="q4">
+            <option value="0">Yes, clear</option>
+            <option value="5">Somewhat</option>
+            <option value="10">No</option>
+        </select>
+
+        <p>5. Is workplace pressure handled fairly?</p>
+        <select id="q5">
+            <option value="0">Yes</option>
+            <option value="5">Sometimes unfair</option>
+            <option value="10">Often unfair</option>
+        </select>
+
+        <button type="button" onclick="calculateRisk()">Calculate</button>
+    </form>
+
+    <h3 id="result"></h3>
+</section>
+
+</div>
+
+<script>
+function calculateRisk() {
+    let total = 0;
+    for (let i=1; i<=5; i++) {
+        total += parseInt(document.getElementById("q"+i).value);
+    }
+
+    let message = "";
+    if (total <= 10) {
+        message = "Low risk environment";
+    } else if (total <= 25) {
+        message = "Moderate risk";
+    } else {
+        message = "High risk employer";
+    }
+
+    document.getElementById("result").innerText = "Your Risk Score: " + total + " → " + message;
+}
+</script>
+
+</body>
+</html>
